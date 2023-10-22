@@ -18,6 +18,7 @@ class KelapaView extends GetView<KelapaController> {
 
     return Scaffold(
         floatingActionButton: FloatingActionButton(
+            heroTag: "btnKelapa",
             backgroundColor: primaryColor,
             child: const Icon(Icons.add),
             onPressed: () {

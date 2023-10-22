@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -13,8 +15,8 @@ import 'package:kelapa_hakam/component/confirmation_dialog.dart';
 class KaryawanController extends GetxController {
   final count = 0.obs;
   final service = UserProvider();
-  final _listKaryawan = <UserModel>[].obs;
-  RxList<UserModel> get listKaryawan => _listKaryawan;
+
+  RxList listKaryawan = [].obs;
   var srchKaryawan = <UserModel>[].obs;
 
   RxInt idForUpdate = 0.obs;
@@ -23,21 +25,16 @@ class KaryawanController extends GetxController {
   TextEditingController textNama = TextEditingController();
   TextEditingController textGudang = TextEditingController();
 
+  @override
+  void onReady() {
+    super.onReady();
+
+    getKaryawan();
+  }
+
   resetTextForm() {
     textNama.clear();
     textGudang.clear();
-  }
-
-  setKaryawan(List<UserModel> data) {
-    _listKaryawan.value = data;
-    srchKaryawan.value = data;
-  }
-
-  searchKaryawan(String value) {
-    srchKaryawan.value = _listKaryawan
-        .where((karyawan) =>
-            karyawan.nama!.toLowerCase().contains(value.toLowerCase()))
-        .toList();
   }
 
   isDelete(int id) {
@@ -76,7 +73,7 @@ class KaryawanController extends GetxController {
 
   getKaryawan() async {
     final data = await service.fetchData();
-    setKaryawan(data);
+    listKaryawan.value = data;
   }
 
   karyawanUpdate(int id, context) async {
@@ -115,8 +112,9 @@ class KaryawanController extends GetxController {
 
   delete(int id) async {
     try {
+      bool deletaKelapa = await service.deleteKelapa(id);
       bool deleteData = await service.deleteData(id);
-      if (deleteData == true) {
+      if (deletaKelapa == true && deleteData == true) {
         isLoading.value = false;
         Get.showSnackbar(GetSnackBar(
           message: 'Berhasil Menghapus Data',
@@ -127,6 +125,7 @@ class KaryawanController extends GetxController {
           duration: 2.seconds,
         ));
         await getKaryawan();
+        print("berhasil hapus data");
       } else {
         if (kDebugMode) {
           print('Gagal Hapus data');

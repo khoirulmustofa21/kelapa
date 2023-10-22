@@ -16,26 +16,27 @@ class AppBarKaryawanSection extends StatelessWidget {
       backgroundColor: primaryColor,
       surfaceTintColor: Colors.white,
       pinned: true,
-      title: Row(
+      title: const Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text('Karyawan'),
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: Obx(
-              () => controller.nameButton.value == 'Simpan'
-                  ? const SizedBox()
-                  : InkWell(
-                      onTap: () {
-                        controller.setNameButton('Simpan');
-                        controller.textNama.clear();
-                        controller.textGudang.clear();
-                      },
-                      child: const Icon(
-                        Icons.cancel,
-                        color: Colors.amber,
-                      )),
-            ),
-          ),
+          Text('Karyawan'),
+          // Padding(
+          //   padding: const EdgeInsets.only(right: 20),
+          //   child: Obx(
+          //     () => controller.nameButton.value == 'Simpan'
+          //         ? const SizedBox()
+          //         : InkWell(
+          //             onTap: () {
+          //               controller.setNameButton('Simpan');
+          //               controller.textNama.clear();
+          //               controller.textGudang.clear();
+          //             },
+          //             child: const Icon(
+          //               Icons.cancel,
+          //               color: Colors.amber,
+          //             )),
+          //   ),
+          // ),
         ],
       ),
     );

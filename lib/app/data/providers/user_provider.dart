@@ -29,6 +29,24 @@ class UserProvider {
     }
   }
 
+  Future<bool> deleteKelapa(int? id) async {
+    final response = await _dio.delete(
+      "$baseUrl/kelapa?id_user=eq.$id",
+      options: Options(
+        headers: {
+          'apikey': apiKey,
+          'Authorization': 'Bearer $apiKey',
+        },
+      ),
+    );
+
+    if (response.statusCode == 204) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Future<bool> deleteData(int? id) async {
     final response = await _dio.delete(
       "$baseUrl/users?id=eq.$id",

@@ -14,7 +14,7 @@ class SearchKaryawanSection extends StatelessWidget {
         controller: TextEditingController(),
         hintText: 'Cari karyawan',
         onChanged: (value) {
-          controller.searchKaryawan(value);
+          // controller.searchKaryawan(value);
         },
       ),
     );

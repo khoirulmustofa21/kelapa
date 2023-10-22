@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kelapa_hakam/app/data/models/kelapa_user_model.dart';
@@ -10,16 +9,13 @@ class KelapaController extends GetxController {
   TextEditingController textNama = TextEditingController();
   TextEditingController textKilo = TextEditingController();
   late TextEditingController nama;
+
   var isLoading = false.obs;
   RxString nameButton = 'Simpan'.obs;
-  // String? initalValue;
   UserModel? initalValue;
   List<KelapaUserModel> listkelapaUser = [];
-
   List<UserModel> karyawn = [];
-
   List<String> listNameKaryawan = [];
-  List listKelapa = [];
 
   final count = 0.obs;
 
@@ -27,25 +23,16 @@ class KelapaController extends GetxController {
     final data = await _provider.getNameKaryawan();
     listNameKaryawan = data.map((e) => e['nama'].toString()).toList();
     update();
-    if (kDebugMode) {
-      // print(listNameKaryawan);s
-    }
   }
 
   getkaryawan() async {
     final data = await _provider.getKaryawan();
     karyawn = data;
-
-    if (kDebugMode) {
-      // print(karyawn);
-    }
   }
 
   onSelectedName(UserModel value) {
     initalValue = value;
     update();
-    // print(value.id);
-    // print("ini adalah initial value $initalValue");
   }
 
   @override
@@ -83,21 +70,9 @@ class KelapaController extends GetxController {
   insertKelapa() {}
   updateKelap() {}
 
-  getAllKelapa() async {
-    listKelapa = await _provider.getAll();
-
-    if (kDebugMode) {
-      print(listKelapa);
-    }
-  }
-
   getKelapaUser() async {
     final data = await _provider.getKelapaUser();
     listkelapaUser = data;
     update();
-    if (kDebugMode) {
-      print(listkelapaUser.map(
-          (e) => " nama : ${e.users?.nama ?? ''}  =>  kilo : ${e.kilo} \n"));
-    }
   }
 }

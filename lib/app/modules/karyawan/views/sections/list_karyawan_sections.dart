@@ -12,7 +12,8 @@ class ListKaryawanSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<KaryawanController>();
+    final controller = Get.put(KaryawanController());
+
     return SliverToBoxAdapter(
       child: Obx(() {
         final sortedList = controller.listKaryawan.reversed.toList();

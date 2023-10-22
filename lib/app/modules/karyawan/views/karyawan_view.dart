@@ -4,6 +4,7 @@ import 'package:kelapa_hakam/app/modules/karyawan/views/sections/add_karyawan_se
 
 import 'package:kelapa_hakam/app/modules/karyawan/views/sections/appbar.dart';
 import 'package:kelapa_hakam/app/modules/karyawan/views/sections/list_karyawan_sections.dart';
+
 import 'package:kelapa_hakam/theme/color.dart';
 import '../controllers/karyawan_controller.dart';
 
@@ -12,11 +13,14 @@ class KaryawanView extends GetView<KaryawanController> {
 
   @override
   Widget build(BuildContext context) {
+    KaryawanController controller = Get.put(KaryawanController());
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+          heroTag: "btnKaryawan",
           backgroundColor: primaryColor,
           child: const Icon(Icons.add),
           onPressed: () {
+            controller.resetTextForm();
             Get.bottomSheet(
               isScrollControlled: false,
               enterBottomSheetDuration: 400.milliseconds,
@@ -24,7 +28,7 @@ class KaryawanView extends GetView<KaryawanController> {
               const AddKaryawanSection(),
             );
           }),
-      body: CustomScrollView(
+      body: const CustomScrollView(
         slivers: [
           AppBarKaryawanSection(),
           ListKaryawanSection(),
